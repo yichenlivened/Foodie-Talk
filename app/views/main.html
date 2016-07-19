@@ -1,10 +1,26 @@
-<div>{{data.headerFullLocation}}</div>
+<h1>Resaturant in {{data.headerFullLocation}}</h1>
 <main>
   <section>
     <div ng-repeat="restaurant in restaurants">
-      <h3>{{restaurant.venue.name}}</h3>
-      <h3>{{restaurant.venue.location.formattedAddress[0]}}</h3>
-      <h3>{{restaurant.venue.hours.status}}{{restaurant.venue.hours.isOpen}}</h3>
+    <div class="panel panel-default">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <img
+            ng-src="{{restaurant.venue.featuredPhotos.items[0].prefix + '242x200' + restaurant.venue.featuredPhotos.items[0].suffix}}"
+            alt="...">
+        </div>
+        <div class="col-xs-12 col-md-8">
+          <div class="restaurant-detail">
+            <h4>{{restaurant.venue.name}}</h4>
+            <p>{{restaurant.venue.rating/2}}</p>
+            <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}}<span>{{restaurant.venue.categories[0].name}}</span></p>
+            <p>{{restaurant.venue.location.formattedAddress[0]}}</p>
+            <p>{{restaurant.venue.hours.status}}{{restaurant.venue.hours.isOpen}}</p>
+            <p class="block-with-text">{{restaurant.tips[0].text | comment}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </section>
 </main>

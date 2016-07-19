@@ -68,7 +68,8 @@ angular
         ll:ll,
         section: section,
         venuePhotos:1,
-        v: getToday()
+        v: getToday(),
+        limit: 10
       };
 
       var promise = $http({
@@ -86,4 +87,24 @@ angular
   };
 
   return myService;
-});
+})
+
+.filter('price', function() {
+
+  // Create the return function and set the required parameter as well as an optional paramater
+  return function(tier, currency) {
+    var i, price = '';
+    for(i=0; i<parseInt(tier); i++){
+      price = price.concat(currency);
+    }
+    return price;
+  }
+
+})
+
+.filter('comment', function() {
+    return function(text) {
+      return '"'+text+'"';
+    }
+  })
+;

@@ -23,6 +23,10 @@ angular.module('foodieTalkApp')
         });
     });
 
+    $scope.showPrice = function(tier, currency){
+
+    };
+
 
 
   });
