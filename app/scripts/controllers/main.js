@@ -14,7 +14,7 @@ angular.module('foodieTalkApp')
           $scope.position = position;
           var section = 'food';
           var ll = $scope.position.coords.latitude + ',' +$scope.position.coords.longitude;
-          myService.async(ll, section).then(function(response){
+          myService.asyncRestaurantList(ll, section).then(function(response){
             $scope.data = response.data.response;
             console.log($scope.data);
             $scope.restaurants = $scope.data.groups[0].items;

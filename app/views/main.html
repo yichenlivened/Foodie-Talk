@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-12 col-md-8">
           <div class="restaurant-detail">
-            <h4>{{restaurant.venue.name}}</h4>
+            <a ng-href="#/restaurant/{{restaurant.venue.id}}">{{restaurant.venue.name}}</a>
             <p>{{restaurant.venue.rating/2}}</p>
             <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}}<span>{{restaurant.venue.categories[0].name}}</span></p>
             <p>{{restaurant.venue.location.formattedAddress[0]}}</p>

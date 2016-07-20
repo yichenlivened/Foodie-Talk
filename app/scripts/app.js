@@ -26,6 +26,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/restaurant/:id', {
+        templateUrl: 'views/restaurant.html',
+        controller: 'RestaurantCtrl',
+        controllerAs: 'restaurant'
+      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
@@ -61,7 +66,7 @@ angular
   }
 
   var myService = {
-    async: function(ll,section){
+    asyncRestaurantList: function(ll,section){
       var data = {
         client_id: auth.clienId,
         client_secret: auth.clientSecret,
@@ -83,6 +88,26 @@ angular
       });
 
       return promise;
+    },
+
+    asyncRestaurant: function(id){
+      var data = {
+        client_id: auth.clienId,
+        client_secret: auth.clientSecret,
+        v: getToday()
+      };
+
+      var promise = $http({
+        method: 'GET',
+        url: 'https://api.foursquare.com/v2/venues/'+id,
+        params: data
+      }).success(function (response) {
+        return response.data;
+      }).error(function (error) {
+        console.log(error);
+      });
+
+      return promise;
     }
   };
 
@@ -90,7 +115,6 @@ angular
 })
 
 .filter('price', function() {
-
   // Create the return function and set the required parameter as well as an optional paramater
   return function(tier, currency) {
     var i, price = '';

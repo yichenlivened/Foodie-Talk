@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <img
+        ng-src="{{restaurant.venue.bestPhoto.prefix + '242x200' + restaurant.venue.bestPhoto.suffix}}"
+        alt="...">
+    </div>
+    <div class="col-xs-12 col-md-8">
+      <div class="restaurant-detail">
+        <a ng-href="#/restaurant/{{restaurant.venue.id}}">{{restaurant.venue.name}}</a>
+        <p>{{restaurant.venue.rating/2}}</p>
+        <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}}<span>{{restaurant.venue.categories[0].name}}</span></p>
+        <p>{{restaurant.venue.location.formattedAddress[0]}}</p>
+        <p>{{restaurant.venue.hours.status}}{{restaurant.venue.hours.isOpen}}</p>
+      </div>
+    </div>
+  </div>
+  <div ng-repeat="listed in restaurant.venue.tips.groups[0].items">
+    <p class="block-with-text"><span>{{listed.user.firstName}} : </span>{{listed.text | comment}}</p>
+  </div>
+</div>
