@@ -9,13 +9,9 @@
  */
 angular.module('foodieTalkApp')
   .controller('RestaurantCtrl', function ($routeParams, $scope, myService) {
-      console.log($routeParams);
-
+    console.log($routeParams);
     myService.asyncRestaurant($routeParams.id).then(function(response){
       $scope.restaurant = response.data.response;
       console.log($scope.restaurant);
     });
   });
-/**
- * Created by yichen on 7/19/16.
- */

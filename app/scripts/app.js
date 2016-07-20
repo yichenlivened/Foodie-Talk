@@ -113,9 +113,54 @@ angular
 
   return myService;
 })
+.directive('starRating', function starRating() {
+  return {
+    restrict: 'EA',
+    template:
+    '<ul class="star-rating" ng-class="{readonly: readonly}">' +
+    '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
+    '    <i class="fa fa-star"></i>' + // or &#9733
+    '  </li>' +
+    '</ul>',
+    scope: {
+      ratingValue: '=ngModel',
+      max: '=?', // optional (default is 5)
+      onRatingSelect: '&?',
+      readonly: '=?'
+    },
+    link: function(scope) {
+      if (scope.max == undefined) {
+        scope.max = 5;
+      }
+      function updateStars() {
+        scope.stars = [];
+        for (var i = 0; i < scope.max; i++) {
+          scope.stars.push({
+            filled: i < scope.ratingValue
+          });
+        }
+      };
+      scope.toggle = function(index) {
+        if (scope.readonly == undefined || scope.readonly === false){
+          scope.ratingValue = index + 1;
+          scope.onRatingSelect({
+            rating: index + 1
+          });
+        }
+      };
+      scope.$watch('ratingValue', function(oldValue, newValue) {
+        if (newValue) {
+          updateStars();
+        }
+      });
+    }
+  };
+})
 
-.filter('price', function() {
-  // Create the return function and set the required parameter as well as an optional paramater
+  .filter('price', filterPrice)
+  .filter('comment', filterComment);
+
+function filterPrice(){
   return function(tier, currency) {
     var i, price = '';
     for(i=0; i<parseInt(tier); i++){
@@ -124,11 +169,9 @@ angular
     return price;
   }
 
-})
-
-.filter('comment', function() {
-    return function(text) {
-      return '"'+text+'"';
-    }
-  })
-;
+}
+function filterComment(){
+  return function(text) {
+    return '"'+text+'"';
+  }
+}

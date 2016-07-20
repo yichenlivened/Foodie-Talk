@@ -1,26 +1,41 @@
-<h1>Resaturant in {{data.headerFullLocation}}</h1>
-<main>
-  <section>
-    <div ng-repeat="restaurant in restaurants">
+<section ng-show="!load">
+  <h1 tabindex="0" autofocus>Loading...</h1>
+</section>
+<section ng-show="load">
+  <h1 tabindex="0" autofocus>Resaturant in {{data.headerFullLocation}}</h1>
+  <div class="row filters">
+    <div class="col-xs-12 col-md-12">
+    <label id="filters-label">Filters</label>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <label class="checkbox-inline"><input type="checkbox" data-ng-model='priceFilter' data-ng-true-value='{venue:{price:{tier:1}}}' data-ng-false-value='' aria-label="Filters Inexpensive">$</label>
+      <label class="checkbox-inline"><input type="checkbox" data-ng-model='priceFilter' data-ng-true-value='{venue:{price:{tier:2}}}' data-ng-false-value='' aria-label="Filters Moderate">$$</label>
+      <label class="checkbox-inline"><input type="checkbox" data-ng-model='priceFilter' data-ng-true-value='{venue:{price:{tier:3}}}' data-ng-false-value='' aria-label="Filters Pricey">$$$</label>
+      <label class="checkbox-inline"><input type="checkbox" data-ng-model='priceFilter' data-ng-true-value='{venue:{price:{tier:4}}}' data-ng-false-value='' aria-label="Filters Ultra High-End">$$$$</label>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <label class="checkbox-inline"><input type="checkbox" data-ng-model='isOpenFilter' data-ng-true-value='{venue:{hours:{isOpen:true}}}' data-ng-false-value=''  aria-label="Filters Open Now">Open Now</label>
+    </div>
+  </div>
+    <article ng-repeat="restaurant in restaurants | filter:priceFilter | filter: isOpenFilter">
     <div class="panel panel-default">
       <div class="row">
         <div class="col-xs-12 col-md-4">
-          <img
-            ng-src="{{restaurant.venue.featuredPhotos.items[0].prefix + '242x200' + restaurant.venue.featuredPhotos.items[0].suffix}}"
-            alt="...">
+          <img class="img-responsive"
+            ng-src="{{restaurant.venue.featuredPhotos.items[0].prefix + '400x600' + restaurant.venue.featuredPhotos.items[0].suffix}}"
+            alt="photo of {{restaurant.venue.name}}">
         </div>
         <div class="col-xs-12 col-md-8">
           <div class="restaurant-detail">
-            <a ng-href="#/restaurant/{{restaurant.venue.id}}">{{restaurant.venue.name}}</a>
+            <a class="restaurant-link" ng-href="#/restaurant/{{restaurant.venue.id}}" aria-label="{{restaurant.venue.categories[0].name}} {{restaurant.venue.name}}">{{restaurant.venue.name}}</a>
             <p>{{restaurant.venue.rating/2}}</p>
-            <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}}<span>{{restaurant.venue.categories[0].name}}</span></p>
-            <p>{{restaurant.venue.location.formattedAddress[0]}}</p>
-            <p>{{restaurant.venue.hours.status}}{{restaurant.venue.hours.isOpen}}</p>
-            <p class="block-with-text">{{restaurant.tips[0].text | comment}}</p>
+            <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}} <span>{{restaurant.venue.categories[0].name}}</span></p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> {{restaurant.venue.location.formattedAddress[0]}}</p>
+            <p><span class="glyphicon glyphicon-time"></span> {{restaurant.venue.hours.status}}</p>
+            <p><span class="glyphicon glyphicon-user"></span> {{restaurant.tips[0].text | comment}}</p>
           </div>
         </div>
       </div>
     </div>
-    </div>
-  </section>
-</main>
+    </article>
+</section>
