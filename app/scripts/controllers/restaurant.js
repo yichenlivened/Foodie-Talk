@@ -14,4 +14,15 @@ angular.module('foodieTalkApp')
       $scope.restaurant = response.data.response;
       console.log($scope.restaurant);
     });
+
+    $scope.addComment = function(){
+      $scope.comment = {
+        user:{
+            firstName:'You'
+          },
+        text:'test'
+      };
+      $scope.restaurant.venue.tips.groups[0].items.unshift($scope.comment);
+    };
+
   });

@@ -27,6 +27,7 @@ body {
 
 .filters{
   padding: 10px 0 10px 0;
+  border-top:1px solid #ddd;
 }
 
 .restaurant-detail{
@@ -35,6 +36,11 @@ body {
     font-size:24px;
     font-weight: 600;
   }
+}
+
+.comment{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* Responsive: Portrait tablets and up */
