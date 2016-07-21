@@ -1,3 +1,7 @@
+<section ng-if="!loaded">
+  <h1 tabindex="0" autofocus>Loading...</h1>
+</section>
+<section ng-if="loaded">
 <article>
   <div class="panel panel-default">
     <div class="row">
@@ -9,7 +13,7 @@
       <div class="col-xs-12 col-md-8">
         <div class="restaurant-detail">
           <a class="restaurant-link" ng-href="#/restaurant/{{restaurant.venue.id}}" aria-label="{{restaurant.venue.categories[0].name}} {{restaurant.venue.name}}">{{restaurant.venue.name}}</a>
-          <p>{{restaurant.venue.rating/2}}</p>
+          <div star-rating ng-model="restaurant.venue.rating" readonly="isReadonly"></div><span>
           <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}} <span>{{restaurant.venue.categories[0].name}}</span></p>
           <p><span class="glyphicon glyphicon-map-marker"></span> {{restaurant.venue.location.formattedAddress[0]}}</p>
           <p><span class="glyphicon glyphicon-time"></span> {{restaurant.venue.hours.status}}</p>
@@ -18,12 +22,14 @@
     </div>
   </div>
   <div class="panel panel-default">
-    <form class="form-horizontal">
-      <textarea class="form-control" rows="3"></textarea>
-      <button type="submit" ng-click="addComment()" class="btn btn-default">Post Review</button>
+    <form class="form-horizontal comment-form">
+      <textarea class="form-control" rows="3" ng-model="$parent.review" arai-label="Tell us your experience in this restaurant." placeholder="Tell us your experience in this restaurant."></textarea>
+      <div class="comment-part"><div class="inline" star-rating ng-model="$parent.rating" ></div><button class="btn btn-success inline" type="submit" ng-click="addComment()">Post Your Review</button></div>
     </form>
     <section class="comment" ng-repeat="listed in restaurant.venue.tips.groups[0].items">
-      <p><strong>{{listed.user.firstName}} : </strong>{{listed.text | comment}}</p>
+      <span class="name">{{listed.user.firstName}} : </span><div star-rating class="inline" ng-model="listed.rating" readonly="$parent.isReadonly"></div>
+      <p>{{listed.text | comment}}</p>
     </section>
   </div>
 </article>
+</section>

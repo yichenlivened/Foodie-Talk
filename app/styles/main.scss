@@ -41,6 +41,26 @@ body {
 .comment{
   padding-left: 10px;
   padding-right: 10px;
+  .name{
+    padding-right: 5px;
+    font-weight: 600;
+  }
+}
+
+.inline{
+  display: inline-block;
+}
+
+.comment-form{
+  padding:10px 10px 60px 10px;
+  border-bottom: 1px solid #ddd;
+  .comment-part{
+    float: right;
+    padding: 10px 0 20px 0;
+    .btn{
+      margin-left:10px;
+    }
+  }
 }
 
 /* Responsive: Portrait tablets and up */
@@ -92,24 +112,26 @@ body {
   background: white;
 }
 
-/* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
 .star-rating {
   margin: 0;
   padding: 0;
   display: inline-block;
-}
-.star-rating .star {
-  padding: 1px;
-  color: #ddd;
-  font-size: 20px;
-  text-shadow: .05em .05em #aaa;
-  list-style-type: none;
-  display: inline-block;
-  cursor: pointer;
-}
-.star-rating .star.filled {
-  color: #fd0;
-}
-.star-rating.readonly .star.filled {
-  color: #666;
+
+  .star {
+    padding: 1px;
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: .05em .05em #aaa;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+
+    &.filled {
+      color: #fd0;
+    }
+  }
+
+  &.readonly .star.filled {
+    cursor: default;
+  }
 }

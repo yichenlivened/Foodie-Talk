@@ -74,7 +74,7 @@ angular
         section: section,
         venuePhotos:1,
         v: getToday(),
-        limit: 10
+        limit: 30
       };
 
       var promise = $http({
@@ -113,52 +113,9 @@ angular
 
   return myService;
 })
-.directive('starRating', function starRating() {
-  return {
-    restrict: 'EA',
-    template:
-    '<ul class="star-rating" ng-class="{readonly: readonly}">' +
-    '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
-    '    <i class="fa fa-star"></i>' + // or &#9733
-    '  </li>' +
-    '</ul>',
-    scope: {
-      ratingValue: '=ngModel',
-      max: '=?', // optional (default is 5)
-      onRatingSelect: '&?',
-      readonly: '=?'
-    },
-    link: function(scope) {
-      if (scope.max == undefined) {
-        scope.max = 5;
-      }
-      function updateStars() {
-        scope.stars = [];
-        for (var i = 0; i < scope.max; i++) {
-          scope.stars.push({
-            filled: i < scope.ratingValue
-          });
-        }
-      };
-      scope.toggle = function(index) {
-        if (scope.readonly == undefined || scope.readonly === false){
-          scope.ratingValue = index + 1;
-          scope.onRatingSelect({
-            rating: index + 1
-          });
-        }
-      };
-      scope.$watch('ratingValue', function(oldValue, newValue) {
-        if (newValue) {
-          updateStars();
-        }
-      });
-    }
-  };
-})
-
   .filter('price', filterPrice)
-  .filter('comment', filterComment);
+  .filter('comment', filterComment)
+  .directive('starRating', starRating);
 
 function filterPrice(){
   return function(tier, currency) {
@@ -173,5 +130,61 @@ function filterPrice(){
 function filterComment(){
   return function(text) {
     return '"'+text+'"';
+  }
+}
+
+function starRating(){
+  return {
+    restrict:'AE',
+    template:
+    '<ul class="star-rating" tabindex="{{readonly ? 0 : -1}}" aria-label="{{ratingValue}} star" ng-class="{readonly: readonly}">' +
+    '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)" tabindex="{{readonly ? -1 : 0}}">' +
+    '    <i class="fa fa-star" aria-label="{{$index+1}} star"></i>' + // or &#973
+    '  </li>' +
+    '</ul>',
+    scope: {
+      ratingValue: '=?ngModel',
+      max: '=?', // optional (default is 5)
+      onRatingSelect: '&?',
+      readonly: '=?'
+    },
+    link: function(scope, element, attributes){
+      if (scope.max == undefined) {
+        scope.max = 5;
+      }
+      if (scope.ratingValue == undefined) {
+        scope.ratingValue = Math.floor((Math.random() * 5) + 1);
+      }
+      console.log(scope.ratingValue);
+      function updateStars() {
+        scope.stars = [];
+        for (var i = 0; i < scope.max; i++) {
+          if(scope.readonly == undefined || scope.readonly === false){
+              scope.stars.push({
+                filled: i < Math.floor(scope.ratingValue)
+              });
+          } else {
+            scope.stars.push({
+                filled: i < Math.floor(scope.ratingValue)
+            });
+          }
+
+        }
+      };
+
+      scope.toggle = function(index) {
+        if (scope.readonly == undefined || scope.readonly === false){
+          scope.ratingValue = index + 1;
+          scope.onRatingSelect = function(){
+              rating: index + 1;
+          };
+        }
+      };
+      scope.$watch('ratingValue', function(oldValue, newValue) {
+        if (newValue) {
+          updateStars();
+        }
+      });
+    }
   }
 }
