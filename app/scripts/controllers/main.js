@@ -19,12 +19,12 @@ angular.module('foodieTalkApp')
           myService.asyncRestaurantList(ll, section).then(function(response){
             $scope.data = response.data.response;
             $scope.loaded = true;
-            console.log($scope.data);
             $scope.restaurants = $scope.data.groups[0].items;
+            console.log($scope.restaurants);
           });
         });
     });
 
-    
+
 
   });

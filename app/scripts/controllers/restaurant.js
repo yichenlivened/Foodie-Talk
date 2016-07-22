@@ -27,7 +27,7 @@ angular.module('foodieTalkApp')
             firstName:'You'
           },
         text:$scope.review,
-        rating: $scope.rating
+        rating: $scope.rating * 2
       };
       $scope.restaurant.venue.tips.groups[0].items.unshift($scope.comment);
       $scope.rating = 1;

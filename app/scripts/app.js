@@ -75,7 +75,7 @@ angular
           section: section,
           venuePhotos: 1,
           v: getToday(),
-          limit: 30
+          limit: 20
         };
 
         var promise = $http({
@@ -146,10 +146,11 @@ angular
         if (scope.max === undefined) {
           scope.max = 5;
         }
+
         if (scope.ratingValue === undefined) {
-          scope.ratingValue = Math.floor((Math.random() * 5) + 1);
+          scope.ratingValue = Math.floor((Math.random() * 10) + 1);
         }
-        console.log(scope.ratingValue);
+
         function updateStars() {
           scope.stars = [];
           for (var i = 0; i < scope.max; i++) {
@@ -159,7 +160,7 @@ angular
               });
             } else {
               scope.stars.push({
-                filled: i < Math.floor(scope.ratingValue)
+                filled: i < Math.floor(scope.ratingValue/2)
               });
             }
 
