@@ -134,4 +134,8 @@ body {
   &.readonly .star.filled {
     cursor: default;
   }
+
+  &.readonly .star {
+    cursor: default;
+  }
 }

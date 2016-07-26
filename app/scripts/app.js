@@ -131,11 +131,16 @@ angular
   .directive('starRating', function () {
     return {
       restrict: 'AE',
-      template: '<ul class="star-rating" tabindex="{{readonly ? 0 : -1}}" aria-label="{{ratingValue}} star" ng-class="{readonly: readonly}">' +
-      '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)" tabindex="{{readonly ? -1 : 0}}">' +
-      '    <i class="fa fa-star" aria-label="{{$index+1}} star"></i>' + // or &#973
-      '  </li>' +
-      '</ul>',
+      template: '<div class="rating" ng-repeat="star in stars">' +
+      '  <label>' +
+      '    <input type="radio" name="rating" value="5" title="5 stars">5' + // or &#973
+      '  </label>' +
+      '</div>',
+      // template: '<ul class="star-rating" tabindex="{{readonly ? -1 : 0}}" aria-label="{{ratingValue}} star" ng-class="{readonly: readonly}">' +
+      // '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)" tabindex="{{readonly ? -1 : 0}}">' +
+      // '    <i class="fa fa-star" tabindex="{{readonly ? -1 : 0}}" aria-label="{{$index+1}} star"></i>' + // or &#973
+      // '  </li>' +
+      // '</ul>',
       scope: {
         ratingValue: '=?ngModel',
         max: '=?', // optional (default is 5)
@@ -148,7 +153,7 @@ angular
         }
 
         if (scope.ratingValue === undefined) {
-          scope.ratingValue = Math.floor((Math.random() * 10) + 1);
+          scope.ratingValue = Math.floor((Math.random() * 10) + 2);
         }
 
         function updateStars() {

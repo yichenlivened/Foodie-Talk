@@ -13,7 +13,9 @@ angular.module('foodieTalkApp')
     $scope.loaded = false;
     $scope.rating = 1;
     $scope.review = '';
+    $scope.name = '';
     $scope.isReadonly = true;
+    $scope.date = new Date();
 
     myService.asyncRestaurant($routeParams.id).then(function(response){
       $scope.restaurant = response.data.response;
@@ -24,9 +26,10 @@ angular.module('foodieTalkApp')
     $scope.addComment = function(){
       $scope.comment = {
         user:{
-            firstName:'You'
+            firstName:$scope.name
           },
         text:$scope.review,
+        createdAt: $scope.date/1000,
         rating: $scope.rating * 2
       };
       $scope.restaurant.venue.tips.groups[0].items.unshift($scope.comment);
