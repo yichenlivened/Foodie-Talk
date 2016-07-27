@@ -42,6 +42,7 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   .name{
+    line-height: 20px;
     padding-right: 5px;
     font-weight: 600;
   }
@@ -52,14 +53,10 @@ body {
 }
 
 .comment-form{
-  padding:10px 10px 60px 10px;
+  padding:10px 10px 20px 10px;
   border-bottom: 1px solid #ddd;
-  .comment-part{
-    float: right;
-    padding: 10px 0 20px 0;
-    .btn{
-      margin-left:10px;
-    }
+  .comment-row{
+    padding-top: 10px;
   }
 }
 
@@ -70,72 +67,41 @@ body {
   }
 }
 
-/* styles for '...' */
-.block-with-text {
-  /* hide text if it more than N lines  */
-  overflow: hidden;
-  /* for set '...' in absolute position */
-  position: relative;
-  /* use this value to count block height */
-  line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (3) */
-  max-height: 2.4em;
-  /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: justify;
-  /* place for '...' */
-  margin-right: -1em;
-  padding-right: 1em;
-}
-/* create the ... */
-.block-with-text:before {
-  /* points in the end */
-  content: '...';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of block */
-  right: 0;
-  bottom: 0;
-}
-/* hide ... if we have text, which is less than or equal to max lines */
-.block-with-text:after {
-  /* points in the end */
-  content: '';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of text */
-  right: 0;
-  /* set width and height */
-  width: 1em;
-  height: 1em;
-  margin-top: 0.2em;
-  /* bg color = bg color under block */
-  background: white;
-}
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  width: 8em;
 
-.star-rating {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
+  input {
+    position: absolute;
+    left: -999999px;
+  }
 
-  .star {
-    padding: 1px;
-    color: #ddd;
-    font-size: 20px;
-    text-shadow: .05em .05em #aaa;
-    list-style-type: none;
+  label {
     display: inline-block;
-    cursor: pointer;
+    font-size: 0;
 
-    &.filled {
-      color: #fd0;
+    &:before {
+      position: relative;
+      font: 24px/1 FontAwesome;
+      display: block;
+      content: "\f005";
+      color: #ccc;
+      background: -webkit-linear-gradient(-45deg, #d9d9d9 0%, #b3b3b3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 
-  &.readonly .star.filled {
-    cursor: default;
+  label.enabled:hover:before,
+  label.enabled:hover ~ label.enabled:before,
+  label.selected:before,
+  label.selected ~ label:before {
+    color: #f0ad4e;
+    background: -webkit-linear-gradient(-45deg, #fcb551 0%, #d69a45 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  &.readonly .star {
-    cursor: default;
-  }
 }
+

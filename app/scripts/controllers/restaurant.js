@@ -30,7 +30,7 @@ angular.module('foodieTalkApp')
           },
         text:$scope.review,
         createdAt: $scope.date/1000,
-        rating: $scope.rating * 2
+        rating: $scope.rating
       };
       $scope.restaurant.venue.tips.groups[0].items.unshift($scope.comment);
       $scope.rating = 1;

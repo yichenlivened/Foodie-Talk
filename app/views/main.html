@@ -28,7 +28,7 @@
         <div class="col-xs-12 col-md-8">
           <div class="restaurant-detail">
             <h2><a class="restaurant-link" ng-href="#/restaurant/{{restaurant.venue.id}}" aria-label="{{restaurant.venue.categories[0].name}} {{restaurant.venue.name}}">{{restaurant.venue.name}}</a></h2>
-            <div star-rating ng-model="restaurant.venue.rating" readonly="true"></div>
+            <div star-rating class="rating inline" ng-model="restaurant.venue.rating" readonly="$parent.isReadonly"></div>
             <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}} <span>{{restaurant.venue.categories[0].name}}</span></p>
             <p><span class="glyphicon glyphicon-map-marker"></span> {{restaurant.venue.location.formattedAddress[0]}}</p>
             <p><span class="glyphicon glyphicon-time"></span> {{restaurant.venue.hours.status}}</p>

@@ -13,7 +13,7 @@
       <div class="col-xs-12 col-md-8">
         <div class="restaurant-detail">
           <h2><a class="restaurant-link" ng-href="#/restaurant/{{restaurant.venue.id}}" aria-label="{{restaurant.venue.categories[0].name}} {{restaurant.venue.name}}">{{restaurant.venue.name}}</a></h2>
-          <div star-rating ng-model="restaurant.venue.rating" readonly="isReadonly"></div><span>
+          <div star-rating class="rating" ng-model="restaurant.venue.rating" readonly="isReadonly"></div><span>
           <p>{{restaurant.venue.price.tier | price: restaurant.venue.price.currency}} <span>{{restaurant.venue.categories[0].name}}</span></p>
           <p><span class="glyphicon glyphicon-map-marker"></span> {{restaurant.venue.location.formattedAddress[0]}}</p>
           <p><span class="glyphicon glyphicon-time"></span> {{restaurant.venue.hours.status}}</p>
@@ -24,14 +24,20 @@
   <div class="panel panel-default">
     <form class="form-horizontal comment-form">
       <textarea class="form-control" rows="3" ng-model="$parent.review" aria-label="Tell us your experience in this restaurant." placeholder="Tell us your experience in this restaurant."></textarea>
-      <div class="comment-part">
-        <input type="text" class="form-control inline" placeholder="Your name" ng-model="$parent.name" aria-label="Enter your name.">
-        <div class="inline" star-rating ng-model="$parent.rating" ></div>
-        <button class="btn btn-primary inline" type="submit" ng-click="addComment()">Post Your Review</button>
+      <div class="row comment-row">
+        <div class="col-xs-12 col-md-4 comment-name">
+          <input type="text" class="form-control inline" placeholder="Your name" ng-model="$parent.name" aria-label="Enter your name.">
+        </div>
+        <div class="col-xs-12 col-md-4 comment-rating">
+          <div star-rating class="rating inline" ng-model="$parent.rating"></div><span>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <button class="btn btn-primary inline" type="submit" ng-click="addComment()">Post Your Review</button>
+        </div>
       </div>
     </form>
     <section class="comment" ng-repeat="listed in restaurant.venue.tips.groups[0].items">
-      <span class="name">{{listed.user.firstName}} : </span><div star-rating class="inline" ng-model="listed.rating" readonly="$parent.isReadonly"></div><span > {{listed.createdAt * 1000 | date:"MM/dd/yyyy"}}</span>
+      <span class="name">{{listed.user.firstName}} : </span><div star-rating class="rating inline" ng-model="listed.rating" readonly="$parent.isReadonly"></div><span > {{listed.createdAt * 1000 | date:"MM/dd/yyyy"}}</span>
       <p>{{listed.text | comment}}</p>
     </section>
   </div>

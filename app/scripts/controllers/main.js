@@ -11,6 +11,8 @@ angular.module('foodieTalkApp')
   .controller('MainCtrl', function ($scope, myService) {
 
     $scope.loaded = false;
+    $scope.isReadonly = true;
+
     navigator.geolocation.getCurrentPosition(function(position){
         $scope.$apply(function(){
           $scope.position = position;

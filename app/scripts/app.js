@@ -131,16 +131,10 @@ angular
   .directive('starRating', function () {
     return {
       restrict: 'AE',
-      template: '<div class="rating" ng-repeat="star in stars">' +
-      '  <label>' +
-      '    <input type="radio" name="rating" value="5" title="5 stars">5' + // or &#973
-      '  </label>' +
-      '</div>',
-      // template: '<ul class="star-rating" tabindex="{{readonly ? -1 : 0}}" aria-label="{{ratingValue}} star" ng-class="{readonly: readonly}">' +
-      // '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)" tabindex="{{readonly ? -1 : 0}}">' +
-      // '    <i class="fa fa-star" tabindex="{{readonly ? -1 : 0}}" aria-label="{{$index+1}} star"></i>' + // or &#973
-      // '  </li>' +
-      // '</ul>',
+      template:
+      '  <label role="radio" ng-attr-tabindex="{{readonly ? -1 : 0}}" ng-class="{selected: star.filled, enabled: !readonly}" ng-repeat="star in stars" ng-click="toggle(5-$index)">' +
+      '    <input type="radio" name="rating" value="{{5-$index}}" tabindex="-1" title="{{5-$index}} stars">{{5-$index}}' +
+      '  </label>',
       scope: {
         ratingValue: '=?ngModel',
         max: '=?', // optional (default is 5)
@@ -161,24 +155,20 @@ angular
           for (var i = 0; i < scope.max; i++) {
             if (scope.readonly === undefined || scope.readonly === false) {
               scope.stars.push({
-                filled: i < Math.floor(scope.ratingValue)
+                filled: i == 5 - Math.floor(scope.ratingValue/2)
               });
             } else {
               scope.stars.push({
-                filled: i < Math.floor(scope.ratingValue/2)
+                filled: i == 5 - Math.floor(scope.ratingValue/2)
               });
             }
-
           }
         }
 
-        scope.toggle = function (index) {
-          if (scope.readonly === undefined || scope.readonly === false) {
-            scope.ratingValue = index + 1;
-            scope.onRatingSelect = function () {
-              var rating = index + 1;
-              return rating;
-            };
+        scope.toggle = function(index) {
+          if (scope.readonly == undefined || scope.readonly === false){
+            scope.ratingValue = index * 2;
+            console.log(scope.ratingValue);
           }
         };
 
