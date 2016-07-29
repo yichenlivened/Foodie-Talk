@@ -179,4 +179,49 @@ angular
         });
       }
     };
+  })
+  .directive('starRatingView', function () {
+    return {
+      restrict: 'AE',
+      template:
+      '  <label role="presentation" ng-attr-tabindex="{{readonly ? -1 : 0}}" ng-class="{selected: star.filled, enabled: !readonly}" ng-repeat="star in stars">' +
+      '    <input role="presentation" type="radio" name="rating" value="{{5-$index}}" tabindex="-1" title="{{5-$index}} stars">{{5-$index}}' +
+      '  </label>',
+      scope: {
+        ratingValue: '=?ngModel',
+        max: '=?', // optional (default is 5)
+        onRatingSelect: '&?',
+        readonly: '=?'
+      },
+      link: function (scope) {
+        if (scope.max === undefined) {
+          scope.max = 5;
+        }
+
+        if (scope.ratingValue === undefined) {
+          scope.ratingValue = Math.floor((Math.random() * 10) + 2);
+        }
+
+        function updateStars() {
+          scope.stars = [];
+          for (var i = 0; i < scope.max; i++) {
+            if (scope.readonly === undefined || scope.readonly === false) {
+              scope.stars.push({
+                filled: i == 5 - Math.floor(scope.ratingValue/2)
+              });
+            } else {
+              scope.stars.push({
+                filled: i == 5 - Math.floor(scope.ratingValue/2)
+              });
+            }
+          }
+        }
+        
+        scope.$watch('ratingValue', function (oldValue, newValue) {
+          if (newValue) {
+            updateStars();
+          }
+        });
+      }
+    };
   });
