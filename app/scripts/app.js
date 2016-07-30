@@ -184,7 +184,7 @@ angular
     return {
       restrict: 'AE',
       template:
-      '  <label role="presentation" ng-attr-tabindex="{{readonly ? -1 : 0}}" ng-class="{selected: star.filled, enabled: !readonly}" ng-repeat="star in stars">' +
+      '  <label role="presentation" tabindex="-1" ng-class="{selected: star.filled, enabled: !readonly}" ng-repeat="star in stars">' +
       '    <input role="presentation" type="radio" name="rating" value="{{5-$index}}" tabindex="-1" title="{{5-$index}} stars">{{5-$index}}' +
       '  </label>',
       scope: {
@@ -216,7 +216,7 @@ angular
             }
           }
         }
-        
+
         scope.$watch('ratingValue', function (oldValue, newValue) {
           if (newValue) {
             updateStars();
