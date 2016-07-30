@@ -37,7 +37,7 @@
       </div>
     </form>
     <section class="comment" ng-repeat="listed in restaurant.venue.tips.groups[0].items">
-      <span class="name">{{listed.user.firstName}} : </span><div star-rating role="presentation" class="rating inline" ng-model="listed.rating" readonly="$parent.isReadonly"></div><span > {{listed.createdAt * 1000 | date:"MM/dd/yyyy"}}</span>
+      <span class="name">{{listed.user.firstName}} : </span><div star-rating-view role="presentation" class="rating inline" ng-model="listed.rating" readonly="$parent.isReadonly"></div><span > {{listed.createdAt * 1000 | date:"MM/dd/yyyy"}}</span>
       <p>{{listed.text | comment}}</p>
     </section>
   </div>
