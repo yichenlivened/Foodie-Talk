@@ -1,5 +1,17 @@
 # Foodie Talk
-A restaurant reviews application with a focus on accessibility.
+A restaurant reviews application with a focus on accessibility -restaurant information, customer reviews and a new review form.
+
+## Technology stack
+HTML5, CSS3, Javascript, Angular, FourSquareAPI
+
+## Features
+- **Accessibility-Images:** All content-related images include appropriate alternate text.
+
+- **Accessibility-Focus:** Most form prompts (including labels, placeholders, etc) are designed for users and their goals - they are phrased in friendly, human language.
+
+- **Accessibility-Elements:** Elements on the page use the appropriate semantic elements. For those elements in which a semantic element is not available, appropriate ```ARIA``` roles are defined.
+
+- **Accessibility-Design:** Color selections and contrast are made with accessibility in mind.
 
 ## Build & development
 Run `grunt` for building and `grunt serve` for preview.
